@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 export class MovieView extends React.Component {
-
   constructor() {
     super();
 
@@ -9,8 +10,8 @@ export class MovieView extends React.Component {
   }
 
   refreshPage() {
-      window.location.reload(false);
-      }
+    window.location.reload(false);
+  }
 
   render() {
     const { movie } = this.props;
@@ -37,11 +38,14 @@ export class MovieView extends React.Component {
           <span className="label">Director: </span>
           <span className="value">{movie.Director.Name}</span>
         </div>
-        <button onClick={this.refreshPage}>Back</button>
-       </div>
+        <Link to={`/directors/${movie.Director.Name}`}>
+          <Button variant="link">Director</Button>
+        </Link>
 
-
+        <Link to={`/genres/${movie.Genre.Name}`}>
+          <Button variant="link">Genre</Button>
+        </Link>
+      </div>
     );
   }
 }
-
