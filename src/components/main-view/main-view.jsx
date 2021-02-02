@@ -8,6 +8,7 @@ import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { RegistrationView } from "../registration-view/registration-view";
+import { ProfileUpdate } from '../profile-update/profile-update';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from 'react-router-dom';
@@ -97,7 +98,7 @@ export class MainView extends React.Component {
       <div>
         <Router>
           <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            <Navbar.Brand href="#home">MyFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
@@ -204,6 +205,12 @@ export class MainView extends React.Component {
                 />
               )}
             />
+            <Route
+            path="/update/:userId"
+            render={() => {
+              return <ProfileUpdate />;
+            }}
+          />
             <Route
               path="/directors/:name"
               render={({ match }) => {
