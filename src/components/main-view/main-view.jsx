@@ -24,7 +24,7 @@ import {
 } from "react-bootstrap";
 
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
   constructor() {
     super();
 
@@ -52,9 +52,7 @@ export class MainView extends React.Component {
       })
       .then((response) => {
         // Assign the result to the state
-        this.setState({
-          movies: response.data
-        });
+        this.props.setMovies(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -90,7 +88,8 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+    let { movies } = this.props;
+    let { user } = this.state;
 
     // if (!user)
     //   return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
@@ -252,3 +251,9 @@ export class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies } )(MainView);

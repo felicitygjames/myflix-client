@@ -54399,7 +54399,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MainView = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -54499,9 +54499,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function (response) {
         // Assign the result to the state
-        _this2.setState({
-          movies: response.data
-        });
+        _this2.props.setMovies(response.data);
       }).catch(function (error) {
         console.log(error);
       });
@@ -54541,10 +54539,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var _this$state = this.state,
-          movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie,
-          user = _this$state.user; // if (!user)
+      var movies = this.props.movies;
+      var user = this.state.user; // if (!user)
       //   return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
 
       if (!movies) return _react.default.createElement("div", {
@@ -54698,7 +54694,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   return MainView;
 }(_react.default.Component);
 
-exports.MainView = MainView;
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    movies: state.movies
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, {
+  setMovies: _actions.setMovies
+})(MainView);
+
+exports.default = _default;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions.js":"actions/actions.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../profile-update/profile-update":"components/profile-update/profile-update.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
@@ -54737,15 +54743,10 @@ function movies() {
   }
 }
 
-function moviesApp() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  return {
-    visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-    movies: movies(state.movies, action)
-  };
-}
-
+var moviesApp = (0, _redux.combineReducers)({
+  visibilityFilter: visibilityFilter,
+  movies: movies
+});
 var _default = moviesApp;
 exports.default = _default;
 },{"redux":"../node_modules/redux/es/redux.js","../actions/actions.js":"actions/actions.js"}],"../node_modules/redux-devtools-extension/index.js":[function(require,module,exports) {
@@ -54786,7 +54787,7 @@ var _redux = require("redux");
 
 var _reactRedux = require("react-redux");
 
-var _mainView = require("./components/main-view/main-view");
+var _mainView = _interopRequireDefault(require("./components/main-view/main-view"));
 
 var _reducers = _interopRequireDefault(require("./reducers/reducers.js"));
 
@@ -54836,16 +54837,16 @@ var MyFlixApplication = /*#__PURE__*/function (_React$Component) {
   _createClass(MyFlixApplication, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement(_reactRedux.Provider, {
+      return _react.default.createElement(_Container.default, null, _react.default.createElement(_reactRedux.Provider, {
         store: store
-      }, _react.default.createElement(_mainView.MainView, null));
+      }, _react.default.createElement(_mainView.default, null)));
     }
   }]);
 
   return MyFlixApplication;
 }(_react.default.Component);
 
-var container = document.getElementsByClassName('app-container')[0];
+var container = document.getElementsByClassName("app-container")[0];
 
 _reactDom.default.render(_react.default.createElement(MyFlixApplication), container);
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","redux":"../node_modules/redux/es/redux.js","react-redux":"../node_modules/react-redux/es/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./reducers/reducers.js":"reducers/reducers.js","redux-devtools-extension":"../node_modules/redux-devtools-extension/index.js","./index.scss":"index.scss","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -54876,7 +54877,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62830" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56110" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
