@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { setMovies } from '../../actions/actions.js';
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -51,7 +53,7 @@ export class MainView extends React.Component {
       .then((response) => {
         // Assign the result to the state
         this.setState({
-          movies: response.data,
+          movies: response.data
         });
       })
       .catch(function (error) {
