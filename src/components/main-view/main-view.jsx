@@ -14,6 +14,8 @@ import { ProfileUpdate } from '../profile-update/profile-update';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from 'react-router-dom';
+import MoviesList from "../movies-list/movies-list";
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input.jsx';
 import {
   Navbar,
   Nav,
@@ -88,7 +90,7 @@ class MainView extends React.Component {
   }
 
   render() {
-    let { movies } = this.props;
+    let { movies, visibilityFilter } = this.props;
     let { user } = this.state;
 
     // if (!user)
@@ -120,12 +122,7 @@ class MainView extends React.Component {
                 </NavDropdown>
               </Nav>
               <Form inline>
-                <FormControl
-                  type="text"
-                  placeholder="Search"
-                  className="mr-sm-2"
-                />
-                <Button variant="outline-success">Search</Button>
+                <VisibilityFilterInput placeholder="Search" className="mr-sm-2" visibilityFilter={visibilityFilter} />
               </Form>
             </Navbar.Collapse>
             {!user ? (
@@ -194,7 +191,7 @@ class MainView extends React.Component {
                   return (
                     <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                   );
-                return movies.map((m) => <MovieCard key={m._id} movie={m} />);
+                return <MoviesList movies = {movies}/> 
               }}
             />
             <Route path="/register" render={() => <RegistrationView />} />

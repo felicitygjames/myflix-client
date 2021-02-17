@@ -41055,7 +41055,100 @@ function ProfileUpdate(props) {
     onClick: handleUpdate
   }, "Update"))));
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js"}],"components/visibility-filter-input/visibility-filter-input.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactRedux = require("react-redux");
+
+var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+
+var _actions = require("../../actions/actions");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function VisibilityFilterInput(props) {
+  return _react.default.createElement(_Form.default.Control, {
+    onChange: function onChange(e) {
+      return props.setFilter(e.target.value);
+    },
+    value: props.visibilityFilter,
+    placeholder: "Search"
+  });
+}
+
+var _default = (0, _reactRedux.connect)(null, {
+  setFilter: _actions.setFilter
+})(VisibilityFilterInput);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js"}],"components/movies-list/movies-list.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _visibilityFilterInput = _interopRequireDefault(require("../visibility-filter-input/visibility-filter-input.jsx"));
+
+var _movieCard = require("../movie-card/movie-card");
+
+var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
+
+var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
+
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  var visibilityFilter = state.visibilityFilter;
+  return {
+    visibilityFilter: visibilityFilter
+  };
+};
+
+function MoviesList(props) {
+  var movies = props.movies,
+      visibilityFilter = props.visibilityFilter;
+  var filteredMovies = movies;
+
+  if (visibilityFilter !== '') {
+    filteredMovies = movies.filter(function (m) {
+      return m.Title.toLocaleLowerCase().includes(visibilityFilter.toLocaleLowerCase());
+    });
+  }
+
+  if (!movies) return _react.default.createElement("div", {
+    className: "main-view"
+  });
+  return _react.default.createElement("div", {
+    className: "movies-list"
+  }, _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, filteredMovies.map(function (m) {
+    return _react.default.createElement(_movieCard.MovieCard, {
+      key: m._id,
+      movie: m
+    });
+  }))));
+}
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../visibility-filter-input/visibility-filter-input.jsx":"components/visibility-filter-input/visibility-filter-input.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -54431,6 +54524,10 @@ var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 
 var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
 
+var _moviesList = _interopRequireDefault(require("../movies-list/movies-list"));
+
+var _visibilityFilterInput = _interopRequireDefault(require("../visibility-filter-input/visibility-filter-input.jsx"));
+
 var _reactBootstrap = require("react-bootstrap");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -54539,7 +54636,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var movies = this.props.movies;
+      var _this$props = this.props,
+          movies = _this$props.movies,
+          visibilityFilter = _this$props.visibilityFilter;
       var user = this.state.user; // if (!user)
       //   return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
 
@@ -54574,13 +54673,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         href: "#action/3.4"
       }, "Separated link"))), _react.default.createElement(_reactBootstrap.Form, {
         inline: true
-      }, _react.default.createElement(_reactBootstrap.FormControl, {
-        type: "text",
+      }, _react.default.createElement(_visibilityFilterInput.default, {
         placeholder: "Search",
-        className: "mr-sm-2"
-      }), _react.default.createElement(_reactBootstrap.Button, {
-        variant: "outline-success"
-      }, "Search"))), !user ? _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
+        className: "mr-sm-2",
+        visibilityFilter: visibilityFilter
+      }))), !user ? _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         variant: "link",
@@ -54624,11 +54721,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
               return _this3.onLoggedIn(user);
             }
           });
-          return movies.map(function (m) {
-            return _react.default.createElement(_movieCard.MovieCard, {
-              key: m._id,
-              movie: m
-            });
+          return _react.default.createElement(_moviesList.default, {
+            movies: movies
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -54705,7 +54799,7 @@ var _default = (0, _reactRedux.connect)(mapStateToProps, {
 })(MainView);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions.js":"actions/actions.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../profile-update/profile-update":"components/profile-update/profile-update.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"reducers/reducers.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions.js":"actions/actions.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../profile-update/profile-update":"components/profile-update/profile-update.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","../movies-list/movies-list":"components/movies-list/movies-list.jsx","../visibility-filter-input/visibility-filter-input.jsx":"components/visibility-filter-input/visibility-filter-input.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54877,7 +54971,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53024" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60131" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
