@@ -1,21 +1,21 @@
 import React from "react";
 import axios from "axios";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { setMovies } from '../../actions/actions.js';
+import { setMovies } from "../../actions/actions.js";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
-import { DirectorView } from '../director-view/director-view';
-import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
+import { DirectorView } from "../director-view/director-view";
+import { GenreView } from "../genre-view/genre-view";
+import { ProfileView } from "../profile-view/profile-view";
 import { RegistrationView } from "../registration-view/registration-view";
-import { ProfileUpdate } from '../profile-update/profile-update';
+import { ProfileUpdate } from "../profile-update/profile-update";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import MoviesList from "../movies-list/movies-list";
-import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input.jsx';
+import VisibilityFilterInput from "../visibility-filter-input/visibility-filter-input.jsx";
 import {
   Navbar,
   Nav,
@@ -24,7 +24,6 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-
 
 class MainView extends React.Component {
   constructor() {
@@ -79,14 +78,14 @@ class MainView extends React.Component {
   }
 
   logOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.setState({
       user: null,
     });
-    console.log('logout successful');
-    alert('You have been successfully logged out');
-    window.open('/', '_self');
+    console.log("logout successful");
+    alert("You have been successfully logged out");
+    window.open("/", "_self");
   }
 
   render() {
@@ -101,13 +100,13 @@ class MainView extends React.Component {
       <div>
         <Router>
           <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">MyFlix</Navbar.Brand>
+            <Navbar.Brand href="/">MyFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#link">Link</Nav.Link>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href={`/users/${user}`}>My Account</Nav.Link>
+                {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">
                     Another action
@@ -119,68 +118,33 @@ class MainView extends React.Component {
                   <NavDropdown.Item href="#action/3.4">
                     Separated link
                   </NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
+                <Nav.Link href={`/`}>Sign In</Nav.Link>
+                {!user ? (
+                  <div>
+                    <Nav.Link href={`/`}>Sign In</Nav.Link>
+                    <Nav.Link href={`/register`}>Register</Nav.Link>
+                  </div>
+                ) : (
+                  <div>
+                    <Nav.Link href={`/`} onClick={() => this.logOut()}>
+                      Sign Out
+                    </Nav.Link>
+                    <Nav.Link to={`/users/${user}`}>My Account</Nav.Link>
+                    <Nav.Link href={`/`}>Movies</Nav.Link>
+                    <Nav.Link href={`/about`}>About</Nav.Link>
+                 </div>
+                )}
+                
               </Nav>
-              <Form inline>
-                <VisibilityFilterInput placeholder="Search" className="mr-sm-2" visibilityFilter={visibilityFilter} />
-              </Form>
             </Navbar.Collapse>
-            {!user ? (
-              <ul>
-                <Link to={`/`}>
-                  <Button 
-                    variant="link"
-                    className="navbar-link"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to={`/register`}>
-                  <Button 
-                    variant="link"
-                    className="navbar-link"
-                  >
-                    Register
-                  </Button>
-                </Link>
-              </ul>
-            ) : (
-              <ul>
-                <Link to={`/`}>
-                  <Button 
-                    variant="link" 
-                    className="navbar-link"
-                    onClick={() => this.logOut()}
-                  >
-                    Sign Out
-                  </Button>
-                </Link>
-                <Link to={`/users/${user}`}>
-                  <Button 
-                    variant="link"
-                    className="navbar-link"
-                  >
-                    My Account
-                  </Button>
-                </Link>
-                <Link to={`/`}>
-                  <Button 
-                    variant="link"
-                    className="navbar-link"
-                  >
-                    Movies
-                  </Button>
-                </Link>
-                <Link to={`/about`}>
-                  <Button 
-                    variant="link"
-                    className="navbar-link"
-                  >
-                    About
-                  </Button>
-                </Link>
-              </ul>
-            )}
+            <Form inline>
+                  <VisibilityFilterInput
+                    placeholder="Search"
+                    className="mr-sm-2"
+                    visibilityFilter={visibilityFilter}
+                  />
+                </Form>
           </Navbar>
           <div className="main-view">
             <Route
@@ -191,7 +155,7 @@ class MainView extends React.Component {
                   return (
                     <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                   );
-                return <MoviesList movies = {movies}/> 
+                return <MoviesList movies={movies} />;
               }}
             />
             <Route path="/register" render={() => <RegistrationView />} />
@@ -204,11 +168,11 @@ class MainView extends React.Component {
               )}
             />
             <Route
-            path="/update/:userId"
-            render={() => {
-              return <ProfileUpdate />;
-            }}
-          />
+              path="/update/:userId"
+              render={() => {
+                return <ProfileUpdate />;
+              }}
+            />
             <Route
               path="/directors/:name"
               render={({ match }) => {
@@ -238,10 +202,10 @@ class MainView extends React.Component {
               }}
             />
             <Route
-            exact
-            path="/users/:userId"
-            render={() => <ProfileView movies={movies} />}
-          />
+              exact
+              path="/users/:userId"
+              render={() => <ProfileView movies={movies} />}
+            />
           </div>
         </Router>
       </div>
@@ -249,8 +213,8 @@ class MainView extends React.Component {
   }
 }
 
-let mapStateToProps = state => {
-  return { movies: state.movies }
-}
+let mapStateToProps = (state) => {
+  return { movies: state.movies };
+};
 
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies })(MainView);

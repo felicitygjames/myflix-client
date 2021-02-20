@@ -54622,14 +54622,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "logOut",
     value: function logOut() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       this.setState({
         user: null
       });
-      console.log('logout successful');
-      alert('You have been successfully logged out');
-      window.open('/', '_self');
+      console.log("logout successful");
+      alert("You have been successfully logged out");
+      window.open("/", "_self");
     }
   }, {
     key: "render",
@@ -54649,7 +54649,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         bg: "light",
         expand: "lg"
       }, _react.default.createElement(_reactBootstrap.Navbar.Brand, {
-        href: "#home"
+        href: "/"
       }, "MyFlix"), _react.default.createElement(_reactBootstrap.Navbar.Toggle, {
         "aria-controls": "basic-navbar-nav"
       }), _react.default.createElement(_reactBootstrap.Navbar.Collapse, {
@@ -54657,60 +54657,33 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Nav, {
         className: "mr-auto"
       }, _react.default.createElement(_reactBootstrap.Nav.Link, {
-        href: "#home"
+        href: "/"
       }, "Home"), _react.default.createElement(_reactBootstrap.Nav.Link, {
-        href: "#link"
-      }, "Link"), _react.default.createElement(_reactBootstrap.NavDropdown, {
-        title: "Dropdown",
-        id: "basic-nav-dropdown"
-      }, _react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-        href: "#action/3.1"
-      }, "Action"), _react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-        href: "#action/3.2"
-      }, "Another action"), _react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-        href: "#action/3.3"
-      }, "Something"), _react.default.createElement(_reactBootstrap.NavDropdown.Divider, null), _react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-        href: "#action/3.4"
-      }, "Separated link"))), _react.default.createElement(_reactBootstrap.Form, {
+        href: "/users/".concat(user)
+      }, "My Account"), _react.default.createElement(_reactBootstrap.Nav.Link, {
+        href: "/"
+      }, "Sign In"), !user ? _react.default.createElement("div", null, _react.default.createElement(_reactBootstrap.Nav.Link, {
+        href: "/"
+      }, "Sign In"), _react.default.createElement(_reactBootstrap.Nav.Link, {
+        href: "/register"
+      }, "Register")) : _react.default.createElement("div", null, _react.default.createElement(_reactBootstrap.Nav.Link, {
+        href: "/",
+        onClick: function onClick() {
+          return _this3.logOut();
+        }
+      }, "Sign Out"), _react.default.createElement(_reactBootstrap.Nav.Link, {
+        to: "/users/".concat(user)
+      }, "My Account"), _react.default.createElement(_reactBootstrap.Nav.Link, {
+        href: "/"
+      }, "Movies"), _react.default.createElement(_reactBootstrap.Nav.Link, {
+        href: "/about"
+      }, "About")))), _react.default.createElement(_reactBootstrap.Form, {
         inline: true
       }, _react.default.createElement(_visibilityFilterInput.default, {
         placeholder: "Search",
         className: "mr-sm-2",
         visibilityFilter: visibilityFilter
-      }))), !user ? _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
-        className: "navbar-link"
-      }, "Sign In")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/register"
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
-        className: "navbar-link"
-      }, "Register"))) : _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
-        className: "navbar-link",
-        onClick: function onClick() {
-          return _this3.logOut();
-        }
-      }, "Sign Out")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/users/".concat(user)
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
-        className: "navbar-link"
-      }, "My Account")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
-        className: "navbar-link"
-      }, "Movies")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/about"
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
-        className: "navbar-link"
-      }, "About")))), _react.default.createElement("div", {
+      }))), _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -54971,7 +54944,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60948" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52957" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
