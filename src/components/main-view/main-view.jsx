@@ -24,6 +24,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import './main-view.scss'
 
 class MainView extends React.Component {
   constructor() {
@@ -99,53 +100,73 @@ class MainView extends React.Component {
     return (
       <div>
         <Router>
-          <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="/">MyFlix</Navbar.Brand>
+        <Navbar
+            expand="lg"
+            sticky="top"
+            variant="dark"
+            expand="lg"
+            className="navbar shadow-sm mb-5"
+          >
+            <Navbar.Brand href="http://localhost:1234" className="navbar-brand">
+              FlixNET
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href={`/users/${user}`}>My Account</Nav.Link>
-                {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                  </NavDropdown.Item>
-                </NavDropdown> */}
-                <Nav.Link href={`/`}>Sign In</Nav.Link>
-                {!user ? (
-                  <div>
-                    <Nav.Link href={`/`}>Sign In</Nav.Link>
-                    <Nav.Link href={`/register`}>Register</Nav.Link>
-                  </div>
-                ) : (
-                  <div>
-                    <Nav.Link href={`/`} onClick={() => this.logOut()}>
-                      Sign Out
-                    </Nav.Link>
-                    <Nav.Link to={`/users/${user}`}>My Account</Nav.Link>
-                    <Nav.Link href={`/`}>Movies</Nav.Link>
-                    <Nav.Link href={`/about`}>About</Nav.Link>
-                 </div>
-                )}
+            <Navbar.Collapse
+              className="justify-content-end"
+              id="basic-navbar-nav"
+            >
+              <Form inline>
                 
-              </Nav>
+                 <VisibilityFilterInput
+                className="mr-sm-2"
+                visibilityFilter={visibilityFilter}
+              />
+              </Form>
+             
+              {!user ? (
+                <ul>
+                  <Link to={`/`}>
+                    <Button variant="link" className="navbar-link">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to={`/register`}>
+                    <Button variant="link" className="navbar-link">
+                      Register
+                    </Button>
+                  </Link>
+                </ul>
+              ) : (
+                <ul>
+                  <Link to={`/`}>
+                    <Button
+                      variant="link"
+                      className="navbar-link"
+                      onClick={() => this.logOut()}
+                    >
+                      Sign Out
+                    </Button>
+                  </Link>
+                  <Link to={`/users/${user}`}>
+                    <Button variant="link" className="navbar-link">
+                      My Account
+                    </Button>
+                  </Link>
+                  <Link to={`/`}>
+                    <Button variant="link" className="navbar-link">
+                      Movies
+                    </Button>
+                  </Link>
+                  <Link to={`/about`}>
+                    <Button variant="link" className="navbar-link">
+                      About
+                    </Button>
+                  </Link>
+                </ul>
+              )}
             </Navbar.Collapse>
-            <Form inline>
-                  <VisibilityFilterInput
-                    placeholder="Search"
-                    className="mr-sm-2"
-                    visibilityFilter={visibilityFilter}
-                  />
-                </Form>
           </Navbar>
+
           <div className="main-view">
             <Route
               exact
