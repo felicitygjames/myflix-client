@@ -54671,7 +54671,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, _defineProperty(_React$createElement, "expand", "lg"), _defineProperty(_React$createElement, "className", "navbar shadow-sm mb-5"), _React$createElement), _react.default.createElement(_reactBootstrap.Navbar.Brand, {
         href: "http://localhost:1234",
         className: "navbar-brand"
-      }, "FlixNET"), _react.default.createElement(_reactBootstrap.Navbar.Toggle, {
+      }, "MyFlix"), _react.default.createElement(_reactBootstrap.Navbar.Toggle, {
         "aria-controls": "basic-navbar-nav"
       }), _react.default.createElement(_reactBootstrap.Navbar.Collapse, {
         className: "justify-content-end",
@@ -54975,7 +54975,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59995" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61682" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

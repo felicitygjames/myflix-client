@@ -1,5 +1,9 @@
 .navbar {
-  background-color: #4e4e45;
+  background-color: #ff1020;
+}
+
+.navbar-brand {
+  font-weight: bold;
 }
 .my-flix {
   color: steelblue;
