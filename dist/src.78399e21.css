@@ -1,9 +1,16 @@
+.movie-view {
+  text-align: center;
+}
 .navbar {
   background-color: #ff1020;
 }
 
 .navbar-brand {
   font-weight: bold;
+}
+
+.navbar-link {
+  color: white;
 }
 .my-flix {
   color: steelblue;

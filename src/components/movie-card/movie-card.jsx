@@ -12,11 +12,11 @@ export class MovieCard extends React.Component {
     return (
       <Card style={{ width: '16rem' }}>
         <Card.Img variant="top" src={movie.ImagePath} />
-        <Card.Body>
+        <Card.Body class="card-body">
           <Card.Title>{movie.Title}</Card.Title>
           {/* <Card.Text>{movie.Description}</Card.Text> */}
           <Link to={`/movies/${movie._id}`}>
-            <Button variant="link">Open</Button>
+            <Button class="open" variant="link">Open</Button>
           </Link>
         </Card.Body>
       </Card>
